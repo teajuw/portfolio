@@ -6,7 +6,7 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 
 ## Current Status
 
-**Phase:** 2 - Polish & Effects
+**Phase:** 2 - Progress Cards + Chat Trigger
 **Last Updated:** Feb 12, 2026
 
 ---
@@ -15,7 +15,7 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 
 - [x] Create GitHub repository
 - [x] Initialize Next.js + Tailwind
-- [x] Set up Warm Terminal theme (colors, fonts)
+- [x] Set up Warm Terminal theme
 - [x] Create component file structure
 - [ ] Set up Edge Functions (Phase 4)
 - [ ] Implement RAG backend (Phase 4)
@@ -27,47 +27,59 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 ### Phase 1: Foundation - COMPLETE
 - [x] Configure Tailwind CSS v4 & globals.css
 - [x] Implement layout.tsx with fonts
-- [x] Create Header component
-- [x] Create Footer component
-- [x] Create ProjectCard component
+- [x] Create Header/Footer/ProjectCard components
 - [x] Assemble page.tsx with card grid
 
-### Phase 2: Polish
-- [ ] Implement hover tilt effect on cards
-- [ ] Add card shadow on hover
-- [ ] Refine tag pill styling
-- [ ] Add links to GitHub/LinkedIn in Footer
+### Phase 2: Progress Cards (ACTIVE)
+- [ ] Add `progress` prop to ProjectCard (0-100)
+- [ ] Implement reveal effect (gradient overlay covers incomplete portion)
+- [ ] Show progress % in bottom-right corner
+- [ ] Reduce hover effects proportionally to progress
 
-### Phase 3: Chat Panel (later)
+### Phase 3: Chat Trigger (ACTIVE)
+- [ ] Create ChatTrigger component (fixed right edge)
+- [ ] Arrow tab that expands on hover to show "Ask me"
+- [ ] Orange glow/branded styling
+- [ ] Magnetic hover feel (expands as cursor approaches)
+
+### Phase 4: Chat Panel (later)
 - [ ] Build ChatPanel slide-in component
 - [ ] Create chat message UI
 - [ ] Add greeting state with suggested prompts
 
 ---
 
+## Progress Values
+
+| Project | Progress |
+|---------|----------|
+| Pickleball CV | 80% |
+| Spotify RAG | 40% |
+| AIM VIP | 60% |
+| Portfolio Site | 90% |
+| CV Coursework | 50% |
+| HuggingFace Clone | 30% |
+
+---
+
 ## Design Specs
 
-### Colors (configured in globals.css)
+### Progress Card Reveal Effect
 ```
---background:         #FFFDF7 (warm cream)
---foreground:         #1A1832 (dark navy)
---card:               #FFFFFF
---primary:            #FF8A00 (orange)
---muted-foreground:   #5C5648
---accent:             #FFF3DE (tag bg)
---accent-foreground:  #B86600 (tag text)
+- Gradient overlay starts at (100 - progress)% from top
+- Overlay: rgba(255, 253, 247, 0.7)
+- Progress text: muted, 12px, font-mono, bottom-right
+- Hover lift reduced proportionally to completion
 ```
 
-### Typography
-- Headings: Space Mono, bold (auto-applied via globals.css)
-- Body: DM Sans, regular
-
-### Card Hover Effect (TODO)
+### Chat Trigger
 ```
-On hover:
-- Subtle 3D tilt based on cursor position
-- Shadow intensifies
-- Slight lift (-translate-y)
+- Fixed position, right edge, vertically centered
+- Tab extends ~40px, expands to ~80px on hover
+- Background: var(--primary) with transparency
+- Icon: chevron-left (lucide-react)
+- Border-radius on left side only (pill edge)
+- Shows "Ask me" text on hover
 ```
 
 ---
@@ -76,15 +88,6 @@ On hover:
 
 | File | Status |
 |------|--------|
-| `src/components/Header.tsx` | Done |
-| `src/components/Footer.tsx` | Done (needs real links) |
-| `src/components/ProjectCard.tsx` | Done (needs hover tilt) |
-| `src/app/page.tsx` | Done |
-
----
-
-## Notes
-
-- Project data is inline in page.tsx (6 projects)
-- lucide-react installed for icons
-- Next task: hover tilt effect on cards
+| `src/components/ProjectCard.tsx` | Needs progress prop |
+| `src/components/ChatTrigger.tsx` | TODO |
+| `src/components/ChatPanel.tsx` | TODO (Phase 4) |
