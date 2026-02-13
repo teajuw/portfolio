@@ -32,8 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.variable} ${spaceMono.variable} ${vt323.variable} antialiased`}
+        className={`${dmSans.variable} ${spaceMono.variable} antialiased relative`}
       >
+        <div className="bg-grid"></div>
         {children}
       </body>
     </html>

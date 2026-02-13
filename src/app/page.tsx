@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
-import ChatTrigger from "@/components/ChatTrigger";
 
 type ProjectStatus = 'done' | 'demo' | 'wip' | 'paused';
 
@@ -63,7 +62,6 @@ export default function Home() {
       </div>
 
       <Footer />
-      <ChatTrigger />
     </main>
   );
 }
