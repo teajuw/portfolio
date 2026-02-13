@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import ProjectFAQ, { FAQScrollButton } from '@/components/ProjectFAQ';
+import ProjectFAQ from '@/components/ProjectFAQ';
 import DemoSection from '@/components/DemoSection';
 
 interface ProjectContent {
@@ -19,35 +18,12 @@ interface ProjectPageClientProps {
 }
 
 export default function ProjectPageClient({ project, slug }: ProjectPageClientProps) {
-  const faqRef = useRef<HTMLDivElement>(null);
-  const [showFAB, setShowFAB] = useState(false);
-
-  // Show FAB when FAQ is out of view (mobile only)
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowFAB(!entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-
-    if (faqRef.current) {
-      observer.observe(faqRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollToFAQ = () => {
-    faqRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   // Check for demo section in content
   const demoSection = project.sections.find(s => s.heading.toLowerCase() === 'demo');
   const otherSections = project.sections.filter(s => s.heading.toLowerCase() !== 'demo');
 
   return (
-    <main className="min-h-screen max-w-[1200px] mx-auto px-5 py-16">
+    <main className="min-h-screen max-w-[900px] mx-auto px-5 py-16">
       {/* Back Link */}
       <Link
         href="/"
@@ -69,40 +45,24 @@ export default function ProjectPageClient({ project, slug }: ProjectPageClientPr
         <DemoSection placeholder={true} />
       )}
 
-      {/* Main Layout: Content + Sticky Sidebar */}
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-        {/* Content Column */}
-        <div className="flex-1 min-w-0">
-          {/* Mobile FAQ (shows at top on mobile) */}
-          <div ref={faqRef} className="lg:hidden mb-10">
-            <ProjectFAQ projectSlug={slug} projectTitle={project.title} variant="inline" />
-          </div>
-
-          {/* Content Sections */}
-          <div className="prose prose-lg max-w-none">
-            {otherSections.map((section, index) => (
-              <section key={index} className="mb-10">
-                <h2 className="text-2xl font-bold font-mono text-foreground mb-4 pb-2 border-b border-border">
-                  {section.heading}
-                </h2>
-                <div className="text-foreground/80 leading-relaxed">
-                  {renderContent(section.content)}
-                </div>
-              </section>
-            ))}
-          </div>
-        </div>
-
-        {/* Sticky Sidebar (desktop only) */}
-        <aside className="hidden lg:block w-80 shrink-0">
-          <div className="sticky top-8">
-            <ProjectFAQ projectSlug={slug} projectTitle={project.title} variant="sidebar" />
-          </div>
-        </aside>
+      {/* Compact FAQ at top */}
+      <div className="mb-12">
+        <ProjectFAQ projectSlug={slug} projectTitle={project.title} variant="compact" />
       </div>
 
-      {/* Mobile FAB */}
-      {showFAB && <FAQScrollButton onClick={scrollToFAQ} />}
+      {/* Content Sections */}
+      <div className="prose prose-lg max-w-none">
+        {otherSections.map((section, index) => (
+          <section key={index} className="mb-10">
+            <h2 className="text-2xl font-bold font-mono text-foreground mb-4 pb-2 border-b border-border">
+              {section.heading}
+            </h2>
+            <div className="text-foreground/80 leading-relaxed">
+              {renderContent(section.content)}
+            </div>
+          </section>
+        ))}
+      </div>
     </main>
   );
 }

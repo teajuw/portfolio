@@ -27,7 +27,7 @@ jobs:
 
       - name: Build knowledge base
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI }}
         run: npm run build:knowledge
 
       - name: Check for changes
