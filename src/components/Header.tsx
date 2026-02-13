@@ -3,28 +3,66 @@
 import { useEffect, useState } from "react";
 import { getGitHubActivity } from "@/lib/github";
 
+const QUIPS = [
+    "teaching computers\nto watch pickleball",
+    "judging your music taste\nwith linear algebra",
+    "writing code that\nwrites code for me",
+    "building this portfolio\nto put on this portfolio",
+    "critiquing cello technique\nwith zero musical talent",
+];
+
 export default function Header() {
     const [displayText, setDisplayText] = useState("");
     const [activity, setActivity] = useState<string | null>(null);
-    const fullText = "teaching computers\nto watch sports";
+    const [quipIndex, setQuipIndex] = useState(0);
+    const [phase, setPhase] = useState<'typing' | 'pausing' | 'deleting'>('typing');
 
     useEffect(() => {
-        // Fetch GitHub activity
         getGitHubActivity().then(setActivity);
-
-        // Typewriter effect
-        let currentIndex = 0;
-        const interval = setInterval(() => {
-            if (currentIndex <= fullText.length) {
-                setDisplayText(fullText.slice(0, currentIndex));
-                currentIndex++;
-            } else {
-                clearInterval(interval);
-            }
-        }, 50); // Speed of typing
-
-        return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        const currentQuip = QUIPS[quipIndex];
+        let timer: NodeJS.Timeout;
+
+        if (phase === 'typing') {
+            if (displayText !== currentQuip) {
+                // Type next character (Slower: 100ms)
+                timer = setTimeout(() => {
+                    setDisplayText(currentQuip.slice(0, displayText.length + 1));
+                }, 100);
+            } else {
+                // Finished typing, hold for Reading (Longer: 7s)
+                timer = setTimeout(() => setPhase('deleting'), 7000);
+            }
+        }
+        else if (phase === 'deleting') {
+            if (displayText === "") {
+                // Fully deleted, wait before next quip (1s)
+                timer = setTimeout(() => {
+                    setQuipIndex((prev) => (prev + 1) % QUIPS.length);
+                    setPhase('typing');
+                }, 1000);
+            }
+            else {
+                // Word-by-word deletion
+                // Find the last boundary (space or newline)
+                const lastSpace = displayText.lastIndexOf(' ');
+                const lastNewline = displayText.lastIndexOf('\n');
+                const cutIndex = Math.max(lastSpace, lastNewline);
+
+                if (cutIndex === -1) {
+                    // No more spaces/newlines, clear remainder
+                    timer = setTimeout(() => setDisplayText(""), 500); // Slower delete pace
+                } else {
+                    // Slice up to the boundary
+                    timer = setTimeout(() => setDisplayText(displayText.slice(0, cutIndex)), 300);
+                }
+            }
+        }
+
+        return () => clearTimeout(timer);
+    }, [displayText, phase, quipIndex]);
 
     return (
         <header className="mb-24 font-mono relative">
@@ -51,8 +89,9 @@ export default function Header() {
                 </div>
 
                 {/* Quote/Status Block with Blinking Cursor */}
-                <div className="pl-6 border-l-2 border-primary py-1 mt-2 min-h-[3.5rem] flex items-center">
-                    <p className="text-xl text-primary leading-relaxed whitespace-pre-line">
+                {/* Fixed height (h-20 approx 5rem) + items-start ensures text starts at top */}
+                <div className="pl-6 border-l-2 border-primary py-1 mt-2 h-[5rem] flex items-start">
+                    <p className="text-xl text-primary leading-relaxed whitespace-pre-line pt-0.5">
                         {displayText}
                         <span className="animate-blink inline-block w-[10px] h-[1.2em] align-middle bg-primary ml-1 mb-1"></span>
                     </p>

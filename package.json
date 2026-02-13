@@ -6,11 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:knowledge": "tsx scripts/build-knowledge.ts"
   },
   "dependencies": {
+    "groq-sdk": "^0.37.0",
     "lucide-react": "^0.563.0",
     "next": "16.1.6",
+    "openai": "^6.21.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
@@ -22,6 +25,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

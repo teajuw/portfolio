@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import SearchBar from "@/components/SearchBar";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 
@@ -54,6 +55,7 @@ export default function Home() {
   return (
     <main className="min-h-screen max-w-[1200px] mx-auto px-5 py-16 relative">
       <Header />
+      <SearchBar />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
         {projects.map((project) => (

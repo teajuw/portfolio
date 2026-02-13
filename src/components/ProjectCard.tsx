@@ -1,3 +1,5 @@
+import { ArrowUpRight } from "lucide-react";
+
 type ProjectStatus = 'done' | 'demo' | 'wip' | 'paused';
 
 interface ProjectCardProps {
@@ -8,66 +10,43 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ title, description, tags, status = 'done' }: ProjectCardProps) {
-  const isDone = status === 'done';
-  const isDemo = status === 'demo';
   const isWip = status === 'wip';
-  const isPaused = status === 'paused';
-
-  // Badge Config
-  const badgeConfig = {
-    done: null,
-    demo: { text: "NEEDS DEMO", bg: "bg-muted" },
-    wip: { text: "BUILDING", bg: "bg-primary" },
-    paused: { text: "PAUSED", bg: "bg-muted" },
-  };
-
-  const currentBadge = badgeConfig[status];
 
   // Visual Styling logic
-  const opacityClass = isDone ? "opacity-100" : "opacity-60";
+  // Only WIP gets the dashed border as requested.
+  // We removed the heavy opacity dimming for non-done states to let content shine.
 
   let borderClass = "border-transparent";
-  if (isDemo) borderClass = "border-2 border-primary border-solid";
-  if (isWip) borderClass = "border-2 border-primary border-dashed";
-  if (isPaused) borderClass = "border-transparent";
-
-  // Hover logic (only done cards float up meaningfully)
-  // We'll apply pointer-events-none or just reduced hover for non-done if desired, 
-  // but spec says "minimal or no hover effect". We can just conditionally apply the hover transform class.
-  const hoverClass = isDone
-    ? "group hover:-translate-y-0.5"
-    : "";
+  if (isWip) borderClass = "border-2 border-dashed border-primary/40";
 
   return (
     <article
       className={`
         bg-card p-6 rounded-[8px] 
         ${borderClass} 
-        ${opacityClass} 
-        ${hoverClass}
-        transition-all duration-200 cursor-pointer relative
+        group hover:-translate-y-1 hover:shadow-lg
+        transition-all duration-300 cursor-pointer relative
+        flex flex-col h-full
       `}
       style={{
-        boxShadow: isDone ? '0 4px 12px rgba(26, 24, 50, 0.08)' : 'none',
+        boxShadow: '0 4px 12px rgba(26, 24, 50, 0.08)',
       }}
     >
-      {/* Badge */}
-      {currentBadge && (
-        <div className={`absolute top-3 right-3 ${currentBadge.bg} text-white px-2 py-1 rounded-[4px] text-[10px] uppercase font-mono font-medium tracking-wide`}>
-          {currentBadge.text}
-        </div>
-      )}
+      {/* Top Anchor Icon */}
+      <div className="absolute top-6 right-6 text-muted-foreground/40 group-hover:text-primary transition-colors duration-300">
+        <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+      </div>
 
-      <div className="h-full flex flex-col relative z-0">
-        <h3 className="text-xl font-bold mb-3 font-mono">{title}</h3>
-        <p className="text-muted-foreground mb-5 text-[0.95rem] line-clamp-2 flex-grow">
+      <div className="flex flex-col h-full relative z-0">
+        <h3 className="text-xl font-bold mb-3 font-mono pr-8">{title}</h3>
+        <p className="text-muted-foreground mb-6 text-[0.95rem] leading-relaxed line-clamp-2 flex-grow">
           {description}
         </p>
         <div className="flex flex-wrap gap-2 mt-auto">
           {tags.map((tag) => (
             <span
               key={tag}
-              className="bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-medium font-mono"
+              className="bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-medium font-mono border border-transparent group-hover:border-primary/20 transition-colors"
             >
               {tag}
             </span>
