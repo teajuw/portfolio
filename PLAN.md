@@ -6,44 +6,41 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 
 ## Current Status
 
-**Phase:** 1 - Foundation
+**Phase:** 2 - Project Cards
 **Last Updated:** Feb 12, 2026
 
 ---
 
-## Backend
+## Backend (Claude Code)
 
-### Phase 1: Foundation
 - [x] Create GitHub repository
 - [x] Initialize Next.js + Tailwind
 - [x] Set up Warm Terminal theme (colors, fonts)
-- [ ] Create basic file structure for components
-
-### Phase 4: Assistant Backend (later)
-- [ ] Set up Edge Functions
-- [ ] Implement embedding endpoint (OpenAI)
-- [ ] Implement chat endpoint (Groq)
-- [ ] Build RAG retrieval logic
-- [ ] Create build-time embedding script
+- [x] Create component file structure
+- [x] Create project data (`src/data/projects.ts`)
+- [ ] Set up Edge Functions (Phase 4)
+- [ ] Implement RAG backend (Phase 4)
 
 ---
 
-## Frontend
+## Frontend (Gemini)
 
 ### Phase 1: Foundation
-- [ ] Build basic page layout (header, card grid, footer)
+- [x] Configure Tailwind CSS v4 & globals.css
+- [x] Implement layout.tsx with fonts
+- [ ] Create Header component
+- [ ] Create Footer component
 
 ### Phase 2: Project Cards
-- [ ] Create ProjectCard component
+- [~] Create ProjectCard component (scaffold exists, needs styling)
 - [ ] Implement hover tilt effect
-- [ ] Add project data (titles, summaries, tags)
 - [ ] Style tags with pill design
+- [ ] Assemble page.tsx with card grid
 
-### Phase 3: Chat Panel
+### Phase 3: Chat Panel (later)
 - [ ] Build ChatPanel slide-in component
 - [ ] Create chat message UI
 - [ ] Add greeting state with suggested prompts
-- [ ] Mobile bottom sheet variant
 
 ---
 
@@ -70,13 +67,24 @@ Tag Text:     #B86600
 Border radius: 8px
 Shadow: 0 4px 12px rgba(26, 24, 50, 0.08)
 Padding: 24px
-Hover: subtle 3D tilt
+Hover: subtle 3D tilt (transform based on cursor position)
 ```
+
+---
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `src/data/projects.ts` | Project data (6 projects) |
+| `src/components/ProjectCard.tsx` | Card component (needs hover effect) |
+| `src/components/Header.tsx` | TODO |
+| `src/components/Footer.tsx` | TODO |
 
 ---
 
 ## Notes
 
-- Gemini handles frontend visual implementation
-- Claude Code handles backend + orchestration
-- Update this file when completing tasks
+- Project data is ready in `src/data/projects.ts`
+- ProjectCard scaffold exists, Gemini should add hover tilt effect
+- Use CSS variables via `style={{ color: 'var(--name)' }}`

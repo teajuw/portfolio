@@ -1,39 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  /* Warm Terminal Theme */
   --background: #FFFDF7;
   --foreground: #1A1832;
   --card: #FFFFFF;
+  --card-foreground: #1A1832;
   --primary: #FF8A00;
-  --secondary: #FFAB42;
+  --primary-foreground: #FFFFFF;
   --muted: #918A7E;
-  --text-light: #5C5648;
-  --code-bg: #FFF7EA;
-  --tag-bg: #FFF3DE;
-  --tag-text: #B86600;
-  --chat-bubble: #FF8A00;
-  --bubble-text: #FFFFFF;
-  --border: rgba(145, 138, 126, 0.2);
+  --muted-foreground: #5C5648;
+  --accent: #FFF3DE;
+  --accent-foreground: #B86600;
+  --border: rgba(26, 24, 50, 0.08); /* Derived from shadow color */
+  
+  --font-sans: 'DM Sans', sans-serif;
+  --font-mono: 'Space Mono', monospace;
 }
 
-@theme inline {
+@theme {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
   --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
   --color-muted: var(--muted);
-  --color-text-light: var(--text-light);
-  --color-code-bg: var(--code-bg);
-  --color-tag-bg: var(--tag-bg);
-  --color-tag-text: var(--tag-text);
-  --font-sans: var(--font-dm-sans);
-  --font-mono: var(--font-space-mono);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mono);
+  font-weight: 700;
 }

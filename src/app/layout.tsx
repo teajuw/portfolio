@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
-import { Space_Mono, DM_Sans } from "next/font/google";
+import { DM_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
 
+const dmSans = DM_Sans({
+  variable: "--font-sans",
+  subsets: ["latin"],
+});
+
 const spaceMono = Space_Mono({
-  variable: "--font-space-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
   weight: ["400", "700"],
 });
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
-
 export const metadata: Metadata = {
   title: "Trevor Wu | ML/AI Engineer",
-  description: "Portfolio showcasing ML/AI projects with an AI-powered navigation assistant",
+  description: "Portfolio of Trevor Wu, ML/AI Engineer.",
 };
 
 export default function RootLayout({
@@ -27,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceMono.variable} ${dmSans.variable} antialiased`}
+        className={`${dmSans.variable} ${spaceMono.variable} antialiased`}
       >
         {children}
       </body>
