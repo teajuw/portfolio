@@ -7,7 +7,7 @@ let openaiClient: OpenAI | null = null;
 function getClient(): OpenAI {
   if (!openaiClient) {
     openaiClient = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY || process.env.OPENAI,
+      apiKey: process.env.OPENAI_API_KEY || process.env.OPENAI || process.env.openai,
     });
   }
   return openaiClient;

@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
 
     // Call Groq LLM
     const groq = new Groq({
-      apiKey: process.env.GROQ_API_KEY || process.env.GROQ,
+      apiKey: process.env.GROQ_API_KEY || process.env.GROQ || process.env.groq,
     });
 
     const completion = await groq.chat.completions.create({
