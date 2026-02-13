@@ -28,10 +28,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Debug - Check content files
+        run: |
+          echo "Content directory:"
+          ls -la content/projects/
+
       - name: Build knowledge base
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI }}
-        run: npm run build:knowledge
+        run: npm run build:knowledge 2>&1
+
+      - name: Debug - Show knowledge.json stats
+        run: |
+          echo "File size:"
+          ls -la src/data/knowledge.json
+          echo "First 100 chars:"
+          head -c 500 src/data/knowledge.json
 
       - name: Check for changes
         id: check_changes
