@@ -6,9 +6,9 @@ import { getGitHubActivity } from "@/lib/github";
 const QUIPS = [
     "teaching computers\nto watch pickleball",
     "judging your music taste\nwith linear algebra",
-    "writing code that\nwrites code for me",
-    "building this portfolio\nto put on this portfolio",
-    "critiquing cello technique\nwith zero musical talent",
+    "automating myself\nout of a job",
+    "putting RAG in my portfolio\nto explain my portfolio",
+    "grading cello technique\nI couldn't play",
 ];
 
 export default function Header() {
