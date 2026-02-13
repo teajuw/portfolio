@@ -25,6 +25,12 @@ Achieved 90% latency improvement over CPU execution with significant thermal red
 ### Feedback Generation
 Pose data is analyzed against proper cello technique. Natural language feedback helps musicians correct their posture in real-time.
 
+## What I Learned
+
+- **Mobile ML is different:** Desktop PyTorch models don't just "work" on phones. Quantization, NPU-specific ops, and memory constraints require rethinking the entire pipeline.
+- **Latency vs accuracy tradeoffs:** 90% latency reduction required accepting slightly lower pose accuracy. For real-time feedback, speed matters more than precision.
+- **Domain expertise matters:** Building for musicians without being one meant constant iteration with actual cellists. Their feedback shaped the feature set more than any technical decision.
+
 ## Tech Stack
 
 - Python, Android (Kotlin)

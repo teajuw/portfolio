@@ -19,7 +19,7 @@ Type a query like "computer vision" or "Python projects" in the search bar. The 
 The status line shows each step transparently: `embedding → searching → found X matches`
 
 ### Per-Project FAQ
-Each project page has an AI assistant (this sidebar) that only answers from that project's content. Answers include source attribution showing which sections informed the response.
+Each project page has an AI assistant that only answers from that project's content. Answers include source attribution showing which sections informed the response.
 
 Uses Groq's Llama 3.3 70B for fast, grounded responses.
 
@@ -43,6 +43,13 @@ Repo is connected to Vercel for automatic deployments. Flow:
 
 Zero-touch content updates with fresh search indexes.
 
+## What I Learned
+
+- **RAG is about chunking:** Bad chunks = bad retrieval. Section-based chunking with clear headers works better than arbitrary token windows.
+- **Transparency builds trust:** Showing "embedding → searching → found 3 matches" makes the AI feel less like magic and more like a tool.
+- **Edge functions have limits:** Vercel Edge has size constraints. Keeping knowledge.json small by only storing necessary metadata matters.
+- **Two-agent workflow:** Using Claude for backend and Gemini for frontend via PLAN.md coordination worked surprisingly well.
+
 ## Tech Stack
 
 - Next.js 16 + React 19 + TypeScript
@@ -53,10 +60,14 @@ Zero-touch content updates with fresh search indexes.
 
 ## Metrics
 
-- 6 projects indexed
-- ~50 content chunks embedded
+- 4 projects indexed
+- ~27 content chunks embedded
 - <500ms search latency
 - 1536-dim embeddings
+
+## Status
+
+Work in progress. Core search and FAQ functional. Adding demo videos and polish.
 
 ## Keywords
 

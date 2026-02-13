@@ -27,6 +27,12 @@ Both embedding types stored in separate ChromaDB vector databases for flexible q
 ### Visualization
 Built clustering visualizations using PCA and UMAP to explore song similarity. Helps understand how the embedding spaces organize music.
 
+## What I Learned
+
+- **Embedding tradeoffs:** Audio embeddings capture vibe but miss lyrical meaning. Lyrics capture themes but miss sonic qualities. Hybrid search outperforms either alone.
+- **Vector DB design:** Separating audio and lyric embeddings into distinct collections made querying more flexible than a single concatenated vector.
+- **LLM query parsing:** Natural language queries are ambiguous. "Something chill" could mean slow tempo, acoustic instrumentation, or relaxed lyrics. The two-stage pipeline helps disambiguate.
+
 ## Tech Stack
 
 - Python, SQLite, ChromaDB

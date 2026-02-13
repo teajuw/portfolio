@@ -1,10 +1,14 @@
 # Pickleball CV
 
+## Demo
+
+Video demo coming soon - will show shot tracking and highlight generation.
+
 ## Overview
 
 Computer vision system for tracking pickleball gameplay, analyzing shots, and generating automated highlights from video footage. Built to demonstrate real-time video analysis and sports analytics capabilities.
 
-## Technical Architecture
+## How It Works
 
 ### Pose Estimation
 Uses MediaPipe BlazePose for real-time pose estimation, detecting 33 body landmarks per frame. The pose data enables stroke classification and player movement analysis.
@@ -22,6 +26,12 @@ A custom PyTorch classifier trained on annotated gameplay footage categorizes sh
 
 ### Highlight Generation
 Automatic highlight detection based on rally length, shot variety, and point outcomes. FFmpeg handles video clipping and compilation.
+
+## What I Learned
+
+- **Multi-model coordination:** Running pose estimation, ball tracking, and classification simultaneously requires careful threading and frame synchronization.
+- **Sports-specific challenges:** Pickleball balls are small and fast. Off-the-shelf trackers fail. Custom color filtering + motion prediction was necessary.
+- **Annotation is expensive:** Training shot classifiers required manually labeling hundreds of clips. Active learning helped prioritize which samples to annotate.
 
 ## Tech Stack
 
