@@ -1,22 +1,16 @@
-import { Quote } from "lucide-react";
+"use client";
 
 export default function Header() {
     return (
         <header className="mb-16">
             <h1 className="text-4xl font-bold mb-6 font-mono">Trevor Ju</h1>
-            <div className="pl-8 flex items-start gap-3">
-                <Quote
-                    size={24}
-                    className="text-primary mt-1 flex-shrink-0"
-                    strokeWidth={2.5}
-                />
-                <div className="space-y-0.5">
-                    <div className="text-lg font-mono text-primary">
-                        teaching computers
-                    </div>
-                    <div className="text-lg font-mono text-primary">
-                        to watch sports
-                    </div>
+            <div className="pl-12">
+                <div className="text-xl font-mono font-bold text-primary tracking-tight">
+                    teaching computers
+                </div>
+                <div className="text-xl font-mono font-bold text-primary tracking-tight">
+                    to watch sports
+                    <span className="inline-block w-[3px] h-6 bg-primary ml-1 align-middle animate-pulse" />
                 </div>
             </div>
         </header>
