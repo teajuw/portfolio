@@ -1,48 +1,51 @@
 # Spotify RAG
 
+## Demo
+
+Video demo coming soon - will show natural language music search in action.
+
 ## Overview
 
-Retrieval-Augmented Generation system for Spotify data, allowing natural language queries about music taste and intelligent playlist generation. Demonstrates RAG architecture, embedding pipelines, and LLM integration.
+A RAG-powered search engine for my Spotify library. Ask questions like "find me something upbeat with meaningful lyrics" and get results based on both audio features and lyric content.
 
-## Technical Architecture
+## How It Works
 
-### Data Ingestion
-Pulls listening history, saved tracks, playlists, and audio features via Spotify Web API. Data is normalized and enriched with genre tags and artist metadata.
+### Data Pipeline
+Built an end-to-end pipeline that syncs ~2,000 liked songs from Spotify to a SQLite database. Tracks metadata, download status, and embedding state for each track.
 
-### Embedding Pipeline
-Track and playlist descriptions are embedded using OpenAI's text-embedding-3-small model. Audio features (tempo, energy, valence, etc.) are concatenated as structured metadata.
+### Dual Embedding Strategy
+- **Audio embeddings:** 350-dimensional CLAP embeddings capture musical characteristics (tempo, mood, instrumentation)
+- **Lyric embeddings:** 500-dimensional sentence embeddings from Genius lyrics capture thematic content
 
-### Vector Storage
-Embeddings stored in a local ChromaDB instance for development. Production would use Pinecone or similar managed vector DB.
+Both embedding types stored in separate ChromaDB vector databases for flexible querying.
 
-### Query Processing
-Natural language queries are:
-1. Embedded using the same model
-2. Matched against track/playlist embeddings via cosine similarity
-3. Top-k results passed to LLM with query for response generation
+### Two-Stage LLM Pipeline
+1. Query interpretation - LLM analyzes natural language to understand intent
+2. Dynamic weighting - determines whether to prioritize lyrical vs. musical similarity
+3. Hybrid vector search - combines results from both embedding spaces
 
-### LLM Integration
-Uses Groq (Llama 3) for fast inference. The LLM synthesizes retrieved context into natural responses like "Based on your listening history, you seem to enjoy upbeat indie rock. Here are some recommendations..."
-
-## Example Queries
-
-- "What genres do I listen to most?"
-- "Make me a workout playlist"
-- "Find songs similar to my top tracks from last month"
-- "What's my most underrated artist?"
+### Visualization
+Built clustering visualizations using PCA and UMAP to explore song similarity. Helps understand how the embedding spaces organize music.
 
 ## Tech Stack
 
-- **LLM:** Groq (Llama 3 70B)
-- **Embeddings:** OpenAI text-embedding-3-small
-- **Vector DB:** ChromaDB (dev), Pinecone (prod)
-- **API:** Spotify Web API
-- **Backend:** FastAPI, Python
+- Python, SQLite, ChromaDB
+- CLAP (audio embeddings)
+- Sentence Transformers (lyric embeddings)
+- Spotify API, Genius API, OpenAI API
+- PCA, UMAP for visualization
+
+## Metrics
+
+- ~2,000 songs indexed
+- 350-dim audio embeddings
+- 500-dim lyric embeddings
+- 2 ChromaDB vector stores
 
 ## Status
 
-Work in progress. Core RAG pipeline functional. Currently building the playlist generation feature and improving query understanding.
+In progress. Core pipeline and search working. Building out the query interface and improving result ranking.
 
 ## Keywords
 
-RAG, retrieval-augmented generation, LLM, embeddings, vector database, Spotify API, natural language processing, recommendation system, Groq, ChromaDB
+RAG, vector search, Spotify, music recommendation, CLAP, sentence transformers, ChromaDB, embeddings, LLM, natural language search

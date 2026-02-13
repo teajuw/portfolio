@@ -1,53 +1,49 @@
 # AIM VIP Research
 
+## Demo
+
+Video demo coming soon - will show real-time posture analysis on Android.
+
 ## Overview
 
-Research project on adversarial machine learning, focusing on robustness of vision transformers against patch attacks. Conducted as part of the AI Mission VIP (Vertically Integrated Project) research program.
+Real-time posture analysis application for cellists, developed over 1.5 years at Purdue's AIM Lab. Uses pose estimation to provide natural language feedback on playing technique.
 
-## Research Focus
+## How It Works
 
-### Adversarial Patch Attacks
-Studied how small, specially-crafted image patches can fool state-of-the-art vision models. Unlike pixel-level perturbations, patches are physically realizable and transferable.
+### Pose Estimation
+MediaPipe BlazePose detects body landmarks in real-time video. Custom preprocessing handles the specific requirements of seated cello playing posture.
 
-### Vision Transformer Vulnerability
-Investigated why ViTs may be more or less susceptible to patch attacks compared to CNNs. Explored the role of attention mechanisms in propagating adversarial signals.
+### NPU Acceleration
+Re-engineered the MediaPipe inference pipeline for Snapdragon NPU hardware acceleration:
+- Custom preprocessing stage
+- Model quantization for NPU
+- BlazePose optimization
+- Pose anchor refinement
 
-### Defense Mechanisms
-Evaluated existing defenses:
-- Adversarial training
-- Patch detection and masking
-- Attention-based filtering
-- Certified robustness methods
+Achieved 90% latency improvement over CPU execution with significant thermal reduction on-device.
 
-## Methodology
-
-1. Implemented patch attack algorithms (PGD, AutoAttack) for ViT architectures
-2. Benchmarked attack success rates across model sizes and patch locations
-3. Measured transferability between different ViT variants
-4. Proposed attention-guided patch defense mechanism
-
-## Key Findings
-
-- Attention heads in later layers show distinct patterns when processing adversarial patches
-- Defense based on attention anomaly detection achieves X% robustness improvement
-- Larger patches are more effective but also more detectable
+### Feedback Generation
+Pose data is analyzed against proper cello technique. Natural language feedback helps musicians correct their posture in real-time.
 
 ## Tech Stack
 
-- **Frameworks:** PyTorch, timm (PyTorch Image Models)
-- **Models:** ViT-B/16, ViT-L/16, DeiT, Swin Transformer
-- **Attacks:** PGD, AutoAttack, custom patch optimization
-- **Datasets:** ImageNet, CIFAR-10
+- Python, Android (Kotlin)
+- MediaPipe, BlazePose
+- PyTorch, TensorFlow
+- Snapdragon NPU optimization
+- Quantization techniques
 
-## Publications & Presentations
+## Metrics
 
-- VIP Research Symposium presentation (Spring 2024)
-- Technical report submitted to research advisor
+- 90% latency improvement vs CPU
+- Real-time on mobile device
+- 1.5 years of research
+- NPU hardware acceleration
 
 ## Status
 
-Research phase complete. Documentation and demo materials in progress.
+Research phase complete. Android application functional. Documentation in progress.
 
 ## Keywords
 
-adversarial machine learning, vision transformers, ViT, patch attacks, robustness, deep learning research, computer vision security, adversarial examples, attention mechanisms
+pose estimation, MediaPipe, BlazePose, Android, NPU acceleration, quantization, real-time, computer vision, music technology, cello

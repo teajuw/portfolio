@@ -15,45 +15,45 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Pickleball CV",
-    slug: "pickleball-cv",
-    description: "Computer vision system for tracking pickleball gameplay, analyzing shots, and generating automated highlights from video footage.",
-    tags: ["Python", "OpenCV", "PyTorch"],
-    status: "paused"
-  },
-  {
     title: "Spotify RAG",
     slug: "spotify-rag",
-    description: "Retrieval-Augmented Generation system for Spotify data, allowing natural language queries about music taste and playlist generation.",
-    tags: ["LLM", "Vector DB", "Spotify API"],
+    description: "RAG-powered search over 2,000 songs using dual CLAP audio and sentence embeddings with a two-stage LLM pipeline for natural language music queries.",
+    tags: ["RAG", "ChromaDB", "CLAP"],
     status: "wip"
   },
   {
     title: "AIM VIP Research",
     slug: "aim-vip",
-    description: "Research project on adversarial machine learning, focusing on robustness of vision transformers against patch attacks.",
-    tags: ["Research", "Deep Learning"],
+    description: "Real-time cello posture analysis on Android using MediaPipe. Achieved 90% latency improvement via Snapdragon NPU acceleration.",
+    tags: ["MediaPipe", "Android", "NPU"],
     status: "demo"
   },
   {
     title: "Portfolio Site",
     slug: "portfolio",
-    description: "Personal portfolio website designed to showcase projects and research with a clean, warm aesthetic.",
-    tags: ["Design", "HTML/CSS"],
+    description: "This site. RAG search, LLM-powered project FAQ, build-time embeddings. A live demo of my ML/AI engineering skills.",
+    tags: ["Next.js", "RAG", "Groq"],
     status: "wip"
-  },
-  {
-    title: "CV Coursework",
-    slug: "cv-coursework",
-    description: "Collection of computer vision implementations including SLAM, optical flow, and 3D reconstruction algorithms.",
-    tags: ["C++", "Vision", "Algorithms"],
-    status: "demo"
   },
   {
     title: "HuggingFace Clone",
     slug: "huggingface-clone",
-    description: "A simplified clone of the HuggingFace Hub, supporting model uploads, versioning, and basic inference API.",
-    tags: ["Full Stack", "React", "FastAPI"],
+    description: "Model registry with Flask API, React frontend, Docker containerization, and AWS deployment. 16,000+ lines on a 4-person team.",
+    tags: ["Flask", "AWS", "Docker"],
+    status: "demo"
+  },
+  {
+    title: "Pickleball CV",
+    slug: "pickleball-cv",
+    description: "Computer vision for tracking pickleball gameplay, analyzing shots, and generating automated highlights from video footage.",
+    tags: ["Python", "OpenCV", "PyTorch"],
+    status: "paused"
+  },
+  {
+    title: "CV Coursework",
+    slug: "cv-coursework",
+    description: "SLAM, optical flow, 3D reconstruction, and stereo vision implementations from graduate computer vision coursework.",
+    tags: ["C++", "OpenCV", "Algorithms"],
     status: "demo"
   }
 ];
