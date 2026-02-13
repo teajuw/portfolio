@@ -26,13 +26,30 @@ Uses Groq's Llama 3.3 70B for fast, grounded responses.
 ### Build-Time Embeddings
 Content lives in markdown files. At build time, a script chunks and embeds all content, storing vectors in a JSON file. No vector database needed - just fast cosine similarity at runtime.
 
+## CI/CD Automation
+
+### Auto-Embedding Pipeline
+GitHub Action triggers on any push to `content/**`. The workflow:
+1. Checks out repo and installs dependencies
+2. Runs embedding script with OpenAI API
+3. Diffs the generated knowledge.json
+4. If changed, commits and pushes automatically
+
+This means I can edit project content in markdown, push, and embeddings regenerate without manual intervention. The `[skip ci]` tag prevents infinite loops.
+
+### Vercel Integration
+Repo is connected to Vercel for automatic deployments. Flow:
+- Push content → GitHub Action generates embeddings → commits → Vercel deploys
+
+Zero-touch content updates with fresh search indexes.
+
 ## Tech Stack
 
 - Next.js 16 + React 19 + TypeScript
 - Tailwind CSS v4
 - OpenAI embeddings + Groq LLM
 - Vercel Edge Functions
-- GitHub Actions for auto-embedding on content changes
+- GitHub Actions for auto-embedding
 
 ## Metrics
 
