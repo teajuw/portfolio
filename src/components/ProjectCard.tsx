@@ -1,44 +1,62 @@
-"use client";
+type ProjectStatus = 'done' | 'demo' | 'wip' | 'paused';
 
 interface ProjectCardProps {
   title: string;
   description: string;
   tags: string[];
-  progress?: number;
+  status?: ProjectStatus;
 }
 
-export default function ProjectCard({ title, description, tags, progress = 100 }: ProjectCardProps) {
-  // Reveal effect: Overlay covers (100 - progress)% from the top
-  const revealPercentage = 100 - progress;
-  const isComplete = progress === 100;
+export default function ProjectCard({ title, description, tags, status = 'done' }: ProjectCardProps) {
+  const isDone = status === 'done';
+  const isDemo = status === 'demo';
+  const isWip = status === 'wip';
+  const isPaused = status === 'paused';
+
+  // Badge Config
+  const badgeConfig = {
+    done: null,
+    demo: { text: "NEEDS DEMO", bg: "bg-muted" },
+    wip: { text: "BUILDING", bg: "bg-primary" },
+    paused: { text: "PAUSED", bg: "bg-muted" },
+  };
+
+  const currentBadge = badgeConfig[status];
+
+  // Visual Styling logic
+  const opacityClass = isDone ? "opacity-100" : "opacity-60";
+
+  let borderClass = "border-transparent";
+  if (isDemo) borderClass = "border-2 border-primary border-solid";
+  if (isWip) borderClass = "border-2 border-primary border-dashed";
+  if (isPaused) borderClass = "border-transparent";
+
+  // Hover logic (only done cards float up meaningfully)
+  // We'll apply pointer-events-none or just reduced hover for non-done if desired, 
+  // but spec says "minimal or no hover effect". We can just conditionally apply the hover transform class.
+  const hoverClass = isDone
+    ? "group hover:-translate-y-0.5"
+    : "";
 
   return (
     <article
-      className={`bg-card p-6 rounded-[8px] border border-transparent transition-all duration-200 cursor-pointer relative overflow-hidden group`}
+      className={`
+        bg-card p-6 rounded-[8px] 
+        ${borderClass} 
+        ${opacityClass} 
+        ${hoverClass}
+        transition-all duration-200 cursor-pointer relative
+      `}
       style={{
-        boxShadow: '0 4px 12px rgba(26, 24, 50, 0.08)',
-        transform: isComplete ? undefined : 'none' // Reset transform base
+        boxShadow: isDone ? '0 4px 12px rgba(26, 24, 50, 0.08)' : 'none',
       }}
     >
-      {/* Visual Overlay for Progress Reveal */}
-      {!isComplete && (
-        <div
-          className="absolute inset-0 pointer-events-none z-10 transition-all duration-700 ease-out"
-          style={{
-            background: `linear-gradient(to bottom, 
-              rgba(255, 253, 247, 0.95) 0%, 
-              rgba(255, 253, 247, 0.7) ${revealPercentage}%, 
-              transparent ${revealPercentage + 15}%)`
-          }}
-        />
+      {/* Badge */}
+      {currentBadge && (
+        <div className={`absolute top-3 right-3 ${currentBadge.bg} text-white px-2 py-1 rounded-[4px] text-[10px] uppercase font-mono font-medium tracking-wide`}>
+          {currentBadge.text}
+        </div>
       )}
-
-      {/* Hover Lift Effect - dynamic based on progress */}
-      <style jsx>{`
-        article:hover {
-          transform: translateY(-${isComplete ? 2 : 0.5}px);
-        }
-      `}</style>
 
       <div className="h-full flex flex-col relative z-0">
         <h3 className="text-xl font-bold mb-3 font-mono">{title}</h3>
@@ -56,13 +74,6 @@ export default function ProjectCard({ title, description, tags, progress = 100 }
           ))}
         </div>
       </div>
-
-      {/* Progress Indicator */}
-      {!isComplete && (
-        <div className="absolute bottom-4 right-4 text-muted-foreground/60 text-xs font-mono font-medium z-20">
-          {progress}%
-        </div>
-      )}
     </article>
   );
 }
