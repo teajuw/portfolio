@@ -1,38 +1,33 @@
-import { Project } from '@/data/projects';
-
 interface ProjectCardProps {
-  project: Project;
+  title: string;
+  description: string;
+  tags: string[];
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
-  // TODO: Gemini - implement hover tilt effect and styling per PLAN.md specs
+export default function ProjectCard({ title, description, tags }: ProjectCardProps) {
   return (
-    <div
-      className="p-6 rounded-lg cursor-pointer transition-all"
-      style={{
-        background: 'var(--card)',
-        boxShadow: '0 4px 12px rgba(26, 24, 50, 0.08)',
-        borderRadius: '8px',
-      }}
+    <article
+      className="bg-card p-6 rounded-[8px] border border-transparent hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+      style={{ boxShadow: 'var(--color-border)' }}
+    // Tailwind v4 shadow util might need config, using inline for exact match first
+    // Actually, let's use the shadow we defined in globals or an arbitrary value
     >
-      <h3 className="font-mono font-bold mb-2">{project.title}</h3>
-      <p className="text-sm mb-4" style={{ color: 'var(--text-light)' }}>
-        {project.description}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-xs px-2 py-1 rounded-full"
-            style={{
-              background: 'var(--tag-bg)',
-              color: 'var(--tag-text)',
-            }}
-          >
-            {tag}
-          </span>
-        ))}
+      <div className="h-full flex flex-col">
+        <h3 className="text-xl font-bold mb-3 font-mono">{title}</h3>
+        <p className="text-muted-foreground mb-5 text-[0.95rem] line-clamp-2 flex-grow">
+          {description}
+        </p>
+        <div className="flex flex-wrap gap-2 mt-auto">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-medium font-mono"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
-    </div>
+    </article>
   );
 }

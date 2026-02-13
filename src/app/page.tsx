@@ -1,43 +1,52 @@
-import { projects } from '@/data/projects';
-import { ProjectCard } from '@/components/ProjectCard';
+import Header from "@/components/Header";
+import ProjectCard from "@/components/ProjectCard";
+import Footer from "@/components/Footer";
+
+const projects = [
+  {
+    title: "Pickleball CV",
+    description: "Computer vision system for tracking pickleball gameplay, analyzing shots, and generating automated highlights from video footage.",
+    tags: ["Python", "OpenCV", "PyTorch"]
+  },
+  {
+    title: "Spotify RAG",
+    description: "Retrieval-Augmented Generation system for Spotify data, allowing natural language queries about music taste and playlist generation.",
+    tags: ["LLM", "Vector DB", "Spotify API"]
+  },
+  {
+    title: "AIM VIP Research",
+    description: "Research project on adversarial machine learning, focusing on robustness of vision transformers against patch attacks.",
+    tags: ["Research", "Deep Learning"]
+  },
+  {
+    title: "Portfolio Site",
+    description: "Personal portfolio website designed to showcase projects and research with a clean, warm aesthetic.",
+    tags: ["Design", "HTML/CSS"]
+  },
+  {
+    title: "CV Coursework",
+    description: "Collection of computer vision implementations including SLAM, optical flow, and 3D reconstruction algorithms.",
+    tags: ["C++", "Vision", "Algorithms"]
+  },
+  {
+    title: "HuggingFace Clone",
+    description: "A simplified clone of the HuggingFace Hub, supporting model uploads, versioning, and basic inference API.",
+    tags: ["Full Stack", "React", "FastAPI"]
+  }
+];
 
 export default function Home() {
-  const flagshipProjects = projects.filter(p => p.row === 'flagship');
-  const foundationProjects = projects.filter(p => p.row === 'foundations');
-
   return (
-    <main className="min-h-screen p-8 md:p-12 lg:p-16" style={{ background: 'var(--background)' }}>
-      {/* Header */}
-      <header className="mb-12">
-        <h1 className="font-mono text-2xl md:text-3xl font-bold" style={{ color: 'var(--foreground)' }}>
-          Trevor Wu
-        </h1>
-        <p style={{ color: 'var(--muted)' }}>ML/AI Engineer</p>
-      </header>
+    <main className="min-h-screen max-w-[1200px] mx-auto px-5 py-16">
+      <Header />
 
-      {/* Project Grid */}
-      <section className="mb-16">
-        {/* Flagship Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-          {flagshipProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        {projects.map((project) => (
+          <ProjectCard key={project.title} {...project} />
+        ))}
+      </div>
 
-        {/* Foundations Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {foundationProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="text-sm" style={{ color: 'var(--muted)' }}>
-        <a href="https://github.com/teajuw" className="mr-4 hover:opacity-80">GitHub</a>
-        <a href="#" className="mr-4 hover:opacity-80">LinkedIn</a>
-        <a href="#" className="hover:opacity-80">Email</a>
-      </footer>
+      <Footer />
     </main>
   );
 }
