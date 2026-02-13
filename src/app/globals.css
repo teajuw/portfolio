@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  /* Warm Terminal Theme */
+  --background: #FFFDF7;
+  --foreground: #1A1832;
+  --card: #FFFFFF;
+  --primary: #FF8A00;
+  --secondary: #FFAB42;
+  --muted: #918A7E;
+  --text-light: #5C5648;
+  --code-bg: #FFF7EA;
+  --tag-bg: #FFF3DE;
+  --tag-text: #B86600;
+  --chat-bubble: #FF8A00;
+  --bubble-text: #FFFFFF;
+  --border: rgba(145, 138, 126, 0.2);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-text-light: var(--text-light);
+  --color-code-bg: var(--code-bg);
+  --color-tag-bg: var(--tag-bg);
+  --color-tag-text: var(--tag-text);
+  --font-sans: var(--font-dm-sans);
+  --font-mono: var(--font-space-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trevor Wu - ML/AI Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #FFFDF7;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1832;
+            --accent-color: #FF8A00;
+            --muted-color: #666666;
+            --tag-bg: #FFF3DE;
+            --tag-text: #B86600;
+            --card-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'DM Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .mono {
+            font-family: 'Space Mono', monospace;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 8px 0;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-family: 'Space Mono', monospace;
+            color: var(--muted-color);
+            font-size: 1.1rem;
+        }
+
+        /* Grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        /* Card */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin: 0 0 12px 0;
+            font-size: 1.25rem;
+        }
+
+        .card p {
+            color: var(--muted-color);
+            font-size: 0.95rem;
+            margin: 0 0 20px 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background-color: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 40px;
+            display: flex;
+            gap: 24px;
+        }
+
+        footer a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--accent-color);
+        }
+
+        footer a.highlight {
+            color: var(--accent-color);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Trevor Wu</h1>
+        <div class="tagline">ML/AI Engineer</div>
+    </header>
+
+    <div class="project-grid">
+        <!-- Card 1 -->
+        <article class="card">
+            <h3>Pickleball CV</h3>
+            <p>Computer vision system for tracking pickleball gameplay, analyzing shots, and generating automated highlights from video footage.</p>
+            <div class="tags">
+                <span class="tag">Python</span>
+                <span class="tag">OpenCV</span>
+                <span class="tag">PyTorch</span>
+            </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+            <h3>Spotify RAG</h3>
+            <p>Retrieval-Augmented Generation system for Spotify data, allowing natural language queries about music taste and playlist generation.</p>
+            <div class="tags">
+                <span class="tag">LLM</span>
+                <span class="tag">Vector DB</span>
+                <span class="tag">Spotify API</span>
+            </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+            <h3>AIM VIP Research</h3>
+            <p>Research project on adversarial machine learning, focusing on robustness of vision transformers against patch attacks.</p>
+            <div class="tags">
+                <span class="tag">Research</span>
+                <span class="tag">Deep Learning</span>
+            </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card">
+            <h3>Portfolio Site</h3>
+            <p>Personal portfolio website designed to showcase projects and research with a clean, warm aesthetic.</p>
+            <div class="tags">
+                <span class="tag">Design</span>
+                <span class="tag">HTML/CSS</span>
+            </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="card">
+            <h3>CV Coursework</h3>
+            <p>Collection of computer vision implementations including SLAM, optical flow, and 3D reconstruction algorithms.</p>
+            <div class="tags">
+                <span class="tag">C++</span>
+                <span class="tag">Vision</span>
+                <span class="tag">Algorithms</span>
+            </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="card">
+            <h3>HuggingFace Clone</h3>
+            <p>A simplified clone of the HuggingFace Hub, supporting model uploads, versioning, and basic inference API.</p>
+            <div class="tags">
+                <span class="tag">Full Stack</span>
+                <span class="tag">React</span>
+                <span class="tag">FastAPI</span>
+            </div>
+        </article>
+    </div>
+
+    <footer>
+        <a href="#">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            GitHub
+        </a>
+        <a href="#">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            LinkedIn
+        </a>
+        <a href="#" class="highlight">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Email
+        </a>
+    </footer>
+</div>
+
+</body>
+</html>
