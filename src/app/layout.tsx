@@ -14,8 +14,8 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Trevor Wu | ML/AI Engineer",
-  description: "Portfolio of Trevor Wu, ML/AI Engineer.",
+  title: "Trevor Ju | ML/AI Engineer",
+  description: "Portfolio of Trevor Ju, ML/AI Engineer.",
 };
 
 export default function RootLayout({

@@ -6,8 +6,9 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 
 ## Current Status
 
-**Phase:** 2 - Progress Cards + Chat Trigger
+**Phase:** 2 - Status Cards + Chat Trigger
 **Last Updated:** Feb 12, 2026
+**Live URL:** https://trevorju.vercel.app
 
 ---
 
@@ -17,8 +18,9 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 - [x] Initialize Next.js + Tailwind
 - [x] Set up Warm Terminal theme
 - [x] Create component file structure
-- [ ] Set up Edge Functions (Phase 4)
-- [ ] Implement RAG backend (Phase 4)
+- [x] Deploy to Vercel
+- [ ] Set up Edge Functions (Phase 5)
+- [ ] Implement RAG backend (Phase 5)
 
 ---
 
@@ -30,49 +32,76 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 - [x] Create Header/Footer/ProjectCard components
 - [x] Assemble page.tsx with card grid
 
-### Phase 2: Progress Cards (ACTIVE)
-- [ ] Add `progress` prop to ProjectCard (0-100)
-- [ ] Implement reveal effect (gradient overlay covers incomplete portion)
-- [ ] Show progress % in bottom-right corner
-- [ ] Reduce hover effects proportionally to progress
+### Phase 2: Status Cards (ACTIVE)
+- [ ] Replace `progress` prop with `status` prop
+- [ ] Implement opacity + border system (see specs below)
+- [ ] Add status badges
 
 ### Phase 3: Chat Trigger (ACTIVE)
-- [ ] Create ChatTrigger component (fixed right edge)
-- [ ] Arrow tab that expands on hover to show "Ask me"
-- [ ] Orange glow/branded styling
-- [ ] Magnetic hover feel (expands as cursor approaches)
+- [x] Create ChatTrigger component
+- [ ] Refine hover animation
+- [ ] Add tooltip on first hover
 
-### Phase 4: Chat Panel (later)
+### Phase 4: Chat Panel
 - [ ] Build ChatPanel slide-in component
 - [ ] Create chat message UI
 - [ ] Add greeting state with suggested prompts
 
----
-
-## Progress Values
-
-| Project | Progress |
-|---------|----------|
-| Pickleball CV | 80% |
-| Spotify RAG | 40% |
-| AIM VIP | 60% |
-| Portfolio Site | 90% |
-| CV Coursework | 50% |
-| HuggingFace Clone | 30% |
+### Phase 5: SEO & Polish
+- [ ] Add meta tags (Open Graph, Twitter cards)
+- [ ] Add favicon
+- [ ] Add sitemap
+- [ ] Performance audit
 
 ---
 
-## Design Specs
+## Project Statuses
 
-### Progress Card Reveal Effect
-```
-- Gradient overlay starts at (100 - progress)% from top
-- Overlay: rgba(255, 253, 247, 0.7)
-- Progress text: muted, 12px, font-mono, bottom-right
-- Hover lift reduced proportionally to completion
-```
+| Project | Status |
+|---------|--------|
+| Pickleball CV | paused |
+| Spotify RAG | wip |
+| AIM VIP | demo |
+| Portfolio Site | wip |
+| CV Coursework | demo |
+| HuggingFace Clone | demo |
 
-### Chat Trigger
+---
+
+## Status Card System
+
+### Logic
+- **Opacity** = Is it presentable? (100% = yes, 60% = no)
+- **Border** = What work remains? (none, outlined, dashed)
+
+### Visual Specs
+
+| Status | Opacity | Border | Badge | Meaning |
+|--------|---------|--------|-------|---------|
+| **done** | 100% | none | none | Ready to ship |
+| **demo** | 60% | 2px solid (outlined) | "needs demo" | Code done, needs docs |
+| **wip** | 60% | 2px dashed | "building" | Actively coding |
+| **paused** | 60% | none | "paused" | On hold |
+
+### Border Colors
+- `demo`: var(--primary) or var(--muted)
+- `wip`: var(--primary) - dashed suggests active work
+- `paused`: no border
+
+### Badge Styling
+- Small, top-right corner
+- Background: var(--muted) for paused, var(--primary) for wip
+- Text: white, uppercase, 10px, font-mono
+- Padding: 4px 8px, border-radius: 4px
+
+### Hover Behavior
+- `done`: Full hover effects (lift, shadow)
+- `demo`, `wip`, `paused`: Reduced or no hover effects
+
+---
+
+## Chat Trigger Specs
+
 ```
 - Fixed position, right edge, vertically centered
 - Tab extends ~40px, expands to ~80px on hover
@@ -88,6 +117,6 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 
 | File | Status |
 |------|--------|
-| `src/components/ProjectCard.tsx` | Needs progress prop |
-| `src/components/ChatTrigger.tsx` | TODO |
-| `src/components/ChatPanel.tsx` | TODO (Phase 4) |
+| `src/components/ProjectCard.tsx` | Needs status prop refactor |
+| `src/components/ChatTrigger.tsx` | Basic version done |
+| `src/components/ChatPanel.tsx` | TODO |
