@@ -1,0 +1,49 @@
+name: Build Embeddings
+
+on:
+  push:
+    paths:
+      - 'content/**'
+    branches:
+      - main
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  build-embeddings:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build knowledge base
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: npm run build:knowledge
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet src/data/knowledge.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push if changed
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add src/data/knowledge.json
+          git commit -m "Update embeddings [skip ci]"
+          git push
