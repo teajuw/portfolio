@@ -70,7 +70,9 @@ export async function POST(request: NextRequest) {
     const projectTitle = kb.projects[projectSlug]?.title || projectSlug;
 
     // Call Groq LLM
-    const groq = new Groq();
+    const groq = new Groq({
+      apiKey: process.env.GROQ_API_KEY || process.env.GROQ,
+    });
 
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
