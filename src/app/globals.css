@@ -11,16 +11,18 @@
   --muted-foreground: #5C5648;
   --accent: #FFF3DE;
   --accent-foreground: #B86600;
-  --border: rgba(26, 24, 50, 0.08); /* Derived from shadow color */
-  
+  --border: rgba(26, 24, 50, 0.08);
+
   --font-sans: 'DM Sans', sans-serif;
   --font-mono: 'Space Mono', monospace;
+  --font-retro: 'VT323', monospace;
 }
 
 @theme {
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-  
+  --font-retro: var(--font-retro);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -45,4 +47,14 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono);
   font-weight: 700;
+}
+
+/* Sharp retro blink animation */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Space_Mono } from "next/font/google";
+import { DM_Sans, Space_Mono, VT323 } from "next/font/google";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -11,6 +11,12 @@ const spaceMono = Space_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
   weight: ["400", "700"],
+});
+
+const vt323 = VT323({
+  variable: "--font-retro",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.variable} ${spaceMono.variable} antialiased`}
+        className={`${dmSans.variable} ${spaceMono.variable} ${vt323.variable} antialiased`}
       >
         {children}
       </body>
