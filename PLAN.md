@@ -6,7 +6,7 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 
 ## Current Status
 
-**Phase:** 2 - Project Cards
+**Phase:** 2 - Polish & Effects
 **Last Updated:** Feb 12, 2026
 
 ---
@@ -17,7 +17,6 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 - [x] Initialize Next.js + Tailwind
 - [x] Set up Warm Terminal theme (colors, fonts)
 - [x] Create component file structure
-- [x] Create project data (`src/data/projects.ts`)
 - [ ] Set up Edge Functions (Phase 4)
 - [ ] Implement RAG backend (Phase 4)
 
@@ -25,17 +24,19 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 
 ## Frontend (Gemini)
 
-### Phase 1: Foundation
+### Phase 1: Foundation - COMPLETE
 - [x] Configure Tailwind CSS v4 & globals.css
 - [x] Implement layout.tsx with fonts
-- [ ] Create Header component
-- [ ] Create Footer component
+- [x] Create Header component
+- [x] Create Footer component
+- [x] Create ProjectCard component
+- [x] Assemble page.tsx with card grid
 
-### Phase 2: Project Cards
-- [~] Create ProjectCard component (scaffold exists, needs styling)
-- [ ] Implement hover tilt effect
-- [ ] Style tags with pill design
-- [ ] Assemble page.tsx with card grid
+### Phase 2: Polish
+- [ ] Implement hover tilt effect on cards
+- [ ] Add card shadow on hover
+- [ ] Refine tag pill styling
+- [ ] Add links to GitHub/LinkedIn in Footer
 
 ### Phase 3: Chat Panel (later)
 - [ ] Build ChatPanel slide-in component
@@ -46,45 +47,44 @@ Coordination file for Claude Code (backend) and Antigravity/Gemini (frontend).
 
 ## Design Specs
 
-### Colors
+### Colors (configured in globals.css)
 ```
-Background:   #FFFDF7 (warm cream)
-Card:         #FFFFFF
-Primary:      #FF8A00 (orange)
-Text:         #1A1832 (dark navy)
-Muted:        #918A7E
-Text Light:   #5C5648
-Tag BG:       #FFF3DE
-Tag Text:     #B86600
+--background:         #FFFDF7 (warm cream)
+--foreground:         #1A1832 (dark navy)
+--card:               #FFFFFF
+--primary:            #FF8A00 (orange)
+--muted-foreground:   #5C5648
+--accent:             #FFF3DE (tag bg)
+--accent-foreground:  #B86600 (tag text)
 ```
 
 ### Typography
-- Headings: Space Mono, bold
+- Headings: Space Mono, bold (auto-applied via globals.css)
 - Body: DM Sans, regular
 
-### Card Specs
+### Card Hover Effect (TODO)
 ```
-Border radius: 8px
-Shadow: 0 4px 12px rgba(26, 24, 50, 0.08)
-Padding: 24px
-Hover: subtle 3D tilt (transform based on cursor position)
+On hover:
+- Subtle 3D tilt based on cursor position
+- Shadow intensifies
+- Slight lift (-translate-y)
 ```
 
 ---
 
 ## Files
 
-| File | Purpose |
-|------|---------|
-| `src/data/projects.ts` | Project data (6 projects) |
-| `src/components/ProjectCard.tsx` | Card component (needs hover effect) |
-| `src/components/Header.tsx` | TODO |
-| `src/components/Footer.tsx` | TODO |
+| File | Status |
+|------|--------|
+| `src/components/Header.tsx` | Done |
+| `src/components/Footer.tsx` | Done (needs real links) |
+| `src/components/ProjectCard.tsx` | Done (needs hover tilt) |
+| `src/app/page.tsx` | Done |
 
 ---
 
 ## Notes
 
-- Project data is ready in `src/data/projects.ts`
-- ProjectCard scaffold exists, Gemini should add hover tilt effect
-- Use CSS variables via `style={{ color: 'var(--name)' }}`
+- Project data is inline in page.tsx (6 projects)
+- lucide-react installed for icons
+- Next task: hover tilt effect on cards
