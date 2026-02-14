@@ -87,6 +87,62 @@ h6 {
   animation: blink 1s step-end infinite;
 }
 
+/* CRT / Glitch Effects */
+@keyframes glitch-tear {
+  0% {
+    clip-path: inset(0 0 0 0);
+  }
+  5% {
+    clip-path: inset(10% 0 60% 0);
+    transform: translateX(-5px);
+  }
+  10% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translateX(5px);
+  }
+  15% {
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+  }
+  25% {
+    clip-path: inset(40% 0 40% 0);
+    transform: translateX(-3px);
+  }
+  30% {
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+  }
+  60% {
+    clip-path: inset(10% 0 10% 0);
+    transform: translateX(3px);
+  }
+  65% {
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes stutter-visibility {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  20% { opacity: 0; }
+  30% { opacity: 1; }
+  40% { opacity: 1; }
+  50% { opacity: 0; }
+  60% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.animate-glitch-tear {
+  animation: glitch-tear 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.animate-stutter {
+  animation: stutter-visibility 0.5s steps(6, end) both;
+}
 /* Sharp retro blink animation */
 @keyframes blink {
 
