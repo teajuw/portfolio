@@ -7,6 +7,11 @@ import { ChevronRight, ChevronLeft, Github } from "lucide-react";
 // --- GLITCH UTILS ---
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+-=[]{}|;':\",./<>?";
 
+const random = (seed: number) => {
+    const x = Math.sin(seed * 789);
+    return (x - Math.floor(x)); // Simple deterministic 0-1
+};
+
 const GlitchTitle = ({ text }: { text: string }) => {
     const [display, setDisplay] = useState(text);
     const iterations = useRef(0);
@@ -103,9 +108,9 @@ const SpotifyDemo = () => (
                     key={i}
                     className="w-8 bg-emerald-500 rounded-t-sm animate-[pulse_1s_ease-in-out_infinite]"
                     style={{
-                        height: `${Math.random() * 100}%`,
+                        height: `${Math.max(10, random(i) * 100)}%`,
                         animationDelay: `${i * 0.1}s`,
-                        animationDuration: `${0.5 + Math.random()}s`
+                        animationDuration: `${0.5 + random(i + 20)}s`
                     }}
                 ></div>
             ))}
@@ -134,8 +139,8 @@ const HuggingFaceDemo = () => (
             {[...Array(8)].map((_, i) => (
                 <div key={i} className="absolute w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
                     style={{
-                        top: `${20 + Math.random() * 60}%`,
-                        left: `${20 + Math.random() * 60}%`,
+                        top: `${20 + random(i) * 60}%`,
+                        left: `${20 + random(i + 10) * 60}%`,
                         boxShadow: '0 0 10px rgba(250, 204, 21, 0.5)'
                     }}>
                 </div>
@@ -224,15 +229,28 @@ const PROJECTS = [
 
 export default function HeroVideoCarousel() {
     const [current, setCurrent] = useState(0);
+    const [prev, setPrev] = useState<number | null>(null);
+    const [isTransitioning, setIsTransitioning] = useState(false);
     const [isPaused, setIsPaused] = useState(false); // Hover pause
     const [hasInteracted, setHasInteracted] = useState(false); // Manual nav disable
     const [progress, setProgress] = useState(0);
 
+    const transitionTo = useCallback((nextIdx: number) => {
+        setPrev(current);
+        setCurrent(nextIdx);
+        setIsTransitioning(true);
+        setProgress(0);
+        // Clear transition ghost after animation completes
+        setTimeout(() => {
+            setIsTransitioning(false);
+            setPrev(null);
+        }, 1200);
+    }, [current]);
+
     // Manual Navigation (Disables Auto-Scroll)
     const next = useCallback(() => {
-        setCurrent((p) => (p + 1) % PROJECTS.length);
-        setProgress(0);
-    }, []);
+        transitionTo((current + 1) % PROJECTS.length);
+    }, [current, transitionTo]);
 
     const manualNext = () => {
         setHasInteracted(true);
@@ -241,8 +259,7 @@ export default function HeroVideoCarousel() {
 
     const manualPrev = () => {
         setHasInteracted(true);
-        setCurrent((p) => (p - 1 + PROJECTS.length) % PROJECTS.length);
-        setProgress(0);
+        transitionTo((current - 1 + PROJECTS.length) % PROJECTS.length);
     };
 
     // Auto-Cycle Logic
@@ -285,25 +302,16 @@ export default function HeroVideoCarousel() {
                 {PROJECTS.map((p, idx) => (
                     <div
                         key={p.id}
-                        className={`absolute inset-0 transition-opacity duration-300 ${idx === current ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                        className={`absolute inset-0 transition-opacity duration-500 ${idx === current ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
+                        style={idx !== current ? { visibility: 'hidden' } : undefined}
                     >
-                        {/* Glitch Container Effect */}
-                        <div className={`relative w-full h-full ${idx === current ? 'animate-[glitch_0.5s_cubic-bezier(.25,.46,.45,.94)_both_infinite]' : ''}`}
-                            style={idx === current ? { animationIterationCount: 1 } : {}}>
-
+                        {/* Demo Container */}
+                        <div className="relative w-full h-full">
                             <p.Demo />
-
-                            {/* RGB Split Overlay Only on Transition */}
-                            <div className="absolute inset-0 hidden pointer-events-none md:block mix-blend-screen opacity-0 animate-[flash_0.5s_ease-out_1]">
-                                {/* Red Channel Shift */}
-                                <div className="absolute inset-0 translate-x-[4px] bg-red-500/20 mix-blend-multiply blur-[1px]"></div>
-                                {/* Blue Channel Shift */}
-                                <div className="absolute inset-0 -translate-x-[4px] bg-blue-500/20 mix-blend-multiply blur-[1px]"></div>
-                            </div>
                         </div>
 
-                        {/* Ambient Glitch Overlay */}
-                        <div className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay"
+                        {/* Noise Grain Overlay */}
+                        <div className="absolute inset-0 pointer-events-none opacity-[0.04]"
                             style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }}>
                         </div>
 
@@ -311,6 +319,39 @@ export default function HeroVideoCarousel() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30 pointer-events-none"></div>
                     </div>
                 ))}
+
+                {/* Transition Ghost — previous slide fading out with red/blue burn-in + pixelation */}
+                {isTransitioning && prev !== null && (() => {
+                    const PrevDemo = PROJECTS[prev].Demo;
+                    return (
+                        <div key={`ghost-${prev}-${current}`} className="absolute inset-0 z-20 pointer-events-none animate-slide-ghost-out">
+                            {/* Red channel ghost */}
+                            <div className="absolute inset-0 translate-x-[8px] translate-y-[2px]" style={{ opacity: 0.8, filter: 'blur(2px) saturate(0) brightness(0.7)', mixBlendMode: 'screen' }}>
+                                <div className="absolute inset-0 bg-red-500/50"></div>
+                                <div className="relative w-full h-full" style={{ filter: 'contrast(2.5) brightness(0.4)' }}>
+                                    <PrevDemo />
+                                </div>
+                            </div>
+                            {/* Blue channel ghost */}
+                            <div className="absolute inset-0 -translate-x-[8px] -translate-y-[2px]" style={{ opacity: 0.8, filter: 'blur(2px) saturate(0) brightness(0.7)', mixBlendMode: 'screen' }}>
+                                <div className="absolute inset-0 bg-blue-500/50"></div>
+                                <div className="relative w-full h-full" style={{ filter: 'contrast(2.5) brightness(0.4)' }}>
+                                    <PrevDemo />
+                                </div>
+                            </div>
+                            {/* Pixelation overlay — chunky blocks */}
+                            <div className="absolute inset-0" style={{
+                                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 12px, rgba(0,0,0,0.4) 12px, rgba(0,0,0,0.4) 14px), repeating-linear-gradient(90deg, transparent, transparent 12px, rgba(0,0,0,0.4) 12px, rgba(0,0,0,0.4) 14px)',
+                                backgroundSize: '14px 14px'
+                            }}></div>
+                            {/* Scanline flicker */}
+                            <div className="absolute inset-0 opacity-20" style={{
+                                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.5) 2px, rgba(0,0,0,0.5) 3px)',
+                                backgroundSize: '100% 3px'
+                            }}></div>
+                        </div>
+                    );
+                })()}
             </div>
 
             {/* Navigation Arrows */}
@@ -337,11 +378,19 @@ export default function HeroVideoCarousel() {
                 <div className="flex flex-col items-start gap-8 max-w-4xl pointer-events-auto">
                     <div className="space-y-4">
                         <div className={`text-sm font-mono font-bold tracking-widest ${PROJECTS[current].theme}`}>PROJECT {current + 1} / {PROJECTS.length}</div>
-                        <h1 className="text-5xl md:text-7xl font-mono font-bold tracking-tighter leading-[0.9] h-[1.1em] relative group-hover:scale-[1.01] transition-transform duration-500">
+                        <h1 key={current} className="text-5xl md:text-7xl font-mono font-bold tracking-tighter leading-[0.9] h-[1.1em] relative group-hover:scale-[1.01] transition-transform duration-500">
+                            {/* Red outline copy — offset down-right with glitch jitter */}
+                            <span className="absolute left-0 top-0 text-red-500/50 animate-outline-glitch-red" aria-hidden="true">{PROJECTS[current].title}</span>
+
+                            {/* Blue outline copy — offset up-left with glitch jitter */}
+                            <span className="absolute left-0 top-0 text-blue-500/50 animate-outline-glitch-blue" aria-hidden="true">{PROJECTS[current].title}</span>
+
+                            {/* Main Text — on top */}
                             <span className="relative z-10"><GlitchTitle text={PROJECTS[current].title} /></span>
-                            {/* Text Glitch Shadow - RGB Split */}
-                            <span className="absolute left-0 top-0 text-red-500/50 opacity-0 animate-[ping_0.2s_cubic-bezier(0,0,0.2,1)_2] mix-blend-screen translate-x-[3px] blur-[1px]">{PROJECTS[current].title}</span>
-                            <span className="absolute left-0 top-0 text-cyan-500/50 opacity-0 animate-[ping_0.2s_cubic-bezier(0,0,0.2,1)_2_0.1s] mix-blend-screen -translate-x-[3px] blur-[1px]">{PROJECTS[current].title}</span>
+
+                            {/* Transition Ghosts (Aggressive Teleport on Change) */}
+                            <span className="absolute left-0 top-0 text-red-500/60 mix-blend-screen animate-ghost-h">{PROJECTS[current].title}</span>
+                            <span className="absolute left-0 top-0 text-blue-500/60 mix-blend-screen animate-ghost-v" style={{ animationDelay: '0.1s' }}>{PROJECTS[current].title}</span>
                         </h1>
                         <p className="text-xl md:text-2xl text-white/70 max-w-lg font-light font-sans">{PROJECTS[current].subtitle}</p>
                     </div>

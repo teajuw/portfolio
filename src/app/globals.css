@@ -92,57 +92,376 @@ h6 {
   0% {
     clip-path: inset(0 0 0 0);
   }
+
   5% {
     clip-path: inset(10% 0 60% 0);
     transform: translateX(-5px);
   }
+
   10% {
     clip-path: inset(80% 0 5% 0);
     transform: translateX(5px);
   }
+
   15% {
     clip-path: inset(0 0 0 0);
     transform: translateX(0);
   }
+
   25% {
     clip-path: inset(40% 0 40% 0);
     transform: translateX(-3px);
   }
+
   30% {
     clip-path: inset(0 0 0 0);
     transform: translateX(0);
   }
+
   60% {
     clip-path: inset(10% 0 10% 0);
     transform: translateX(3px);
   }
+
   65% {
     clip-path: inset(0 0 0 0);
     transform: translateX(0);
   }
+
   100% {
     clip-path: inset(0 0 0 0);
   }
 }
 
-@keyframes stutter-visibility {
-  0% { opacity: 0; }
-  10% { opacity: 1; }
-  20% { opacity: 0; }
-  30% { opacity: 1; }
-  40% { opacity: 1; }
-  50% { opacity: 0; }
-  60% { opacity: 1; }
-  100% { opacity: 1; }
+@keyframes ghost-h {
+  0% {
+    transform: translateX(-3px);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+
+  20% {
+    transform: translateX(2px);
+    opacity: 0.5;
+    filter: blur(0.5px);
+  }
+
+  40% {
+    opacity: 0.3;
+  }
+
+  60% {
+    transform: translateX(1px);
+    opacity: 0.15;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes ghost-v {
+  0% {
+    transform: translateY(-2px);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+
+  20% {
+    transform: translateY(1px);
+    opacity: 0.5;
+    filter: blur(0.5px);
+  }
+
+  40% {
+    opacity: 0.3;
+  }
+
+  60% {
+    transform: translateY(-0.5px);
+    opacity: 0.15;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes ghost-static {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  10%,
+  90% {
+    opacity: 0.4;
+    transform: scale(1.05);
+    filter: contrast(150%) saturate(200%);
+  }
+
+  20%,
+  80% {
+    opacity: 0.2;
+    transform: scale(0.98) translateX(5px);
+  }
+
+  30%,
+  70% {
+    opacity: 0.5;
+    transform: scale(1.02) translateX(-5px);
+  }
+}
+
+.animate-ghost-h {
+  animation: ghost-h 0.6s cubic-bezier(0.1, 0.9, 0.2, 1) both;
+}
+
+.animate-ghost-v {
+  animation: ghost-v 0.6s cubic-bezier(0.1, 0.9, 0.2, 1) both;
+}
+
+.animate-ghost-static {
+  animation: ghost-static 0.6s steps(4) both;
+}
+
+
+@keyframes rgb-shake {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(-10px, 5px);
+  }
+
+  50% {
+    transform: translate(10px, -5px);
+  }
+
+  75% {
+    transform: translate(-5px, 10px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes artifact-flash {
+  0% {
+    backdrop-filter: none;
+  }
+
+  10%,
+  90% {
+    backdrop-filter: blur(2px) contrast(150%);
+  }
+
+  30%,
+  70% {
+    backdrop-filter: blur(8px) contrast(200%) sepia(1);
+  }
+
+  50% {
+    backdrop-filter: none;
+  }
+
+  100% {
+    backdrop-filter: none;
+  }
 }
 
 .animate-glitch-tear {
   animation: glitch-tear 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-.animate-stutter {
-  animation: stutter-visibility 0.5s steps(6, end) both;
+.animate-burn-in {
+  animation: burn-in 0.5s ease-out both;
 }
+
+.animate-slide-ghost-out {
+  animation: slide-ghost-out 1.2s ease-out both;
+}
+
+.animate-ambient-ghost {
+  animation: ambient-ghost 4s ease-in-out infinite;
+}
+
+.animate-outline-glitch-red {
+  animation: outline-glitch-red 3.5s steps(1, end) infinite;
+}
+
+.animate-outline-glitch-blue {
+  animation: outline-glitch-blue 4.2s steps(1, end) infinite;
+}
+
+.animate-rgb-shake {
+  animation: rgb-shake 0.5s linear infinite;
+}
+
+.animate-artifact {
+  animation: artifact-flash 0.5s steps(3, end) both;
+}
+
+@keyframes burn-in {
+  0% {
+    opacity: 0;
+    filter: brightness(1.6);
+  }
+
+  30% {
+    opacity: 1;
+    filter: brightness(1.1);
+  }
+
+  100% {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@keyframes slide-ghost-out {
+  0% {
+    opacity: 0.85;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+
+  40% {
+    opacity: 0.5;
+    filter: blur(1px);
+    transform: scale(1.003);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(4px);
+    transform: scale(1.008);
+  }
+}
+
+@keyframes ambient-ghost {
+
+  0%,
+  100% {
+    opacity: 0.12;
+    transform: translateX(1.5px);
+    filter: blur(0.5px);
+  }
+
+  50% {
+    opacity: 0.2;
+    transform: translateX(2.5px);
+    filter: blur(1px);
+  }
+}
+
+@keyframes outline-glitch-red {
+
+  0%,
+  100% {
+    transform: translate(5px, 3px);
+    opacity: 0.4;
+    filter: none;
+  }
+
+  /* short jitter burst */
+  14% {
+    transform: translate(8px, 1px);
+    opacity: 0.55;
+    filter: blur(1px);
+  }
+
+  16% {
+    transform: translate(3px, 5px);
+    opacity: 0.2;
+  }
+
+  18% {
+    transform: translate(5px, 3px);
+    opacity: 0.4;
+    filter: none;
+  }
+
+  /* second glitch */
+  62% {
+    transform: translate(6px, 0px);
+    opacity: 0.5;
+  }
+
+  64% {
+    transform: translate(2px, 4px);
+    opacity: 0.25;
+    filter: blur(0.5px);
+  }
+
+  66% {
+    transform: translate(5px, 3px);
+    opacity: 0.4;
+    filter: none;
+  }
+}
+
+@keyframes outline-glitch-blue {
+
+  0%,
+  100% {
+    transform: translate(-3px, -2px);
+    opacity: 0.5;
+    filter: none;
+  }
+
+  /* first burst */
+  22% {
+    transform: translate(-6px, 0px);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+
+  24% {
+    transform: translate(-1px, -4px);
+    opacity: 0.3;
+  }
+
+  26% {
+    transform: translate(-3px, -2px);
+    opacity: 0.5;
+    filter: none;
+  }
+
+  /* second burst */
+  73% {
+    transform: translate(-5px, -1px);
+    opacity: 0.6;
+  }
+
+  75% {
+    transform: translate(-2px, -5px);
+    opacity: 0.35;
+    filter: blur(0.5px);
+  }
+
+  77% {
+    transform: translate(-3px, -2px);
+    opacity: 0.5;
+    filter: none;
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
 /* Sharp retro blink animation */
 @keyframes blink {
 
