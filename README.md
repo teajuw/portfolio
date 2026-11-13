@@ -1,3 +1,7 @@
+> **Retired.** This repo is an earlier attempt at Trevor's portfolio and is archived.
+> The portfolio is [trevorju.dev](https://trevorju.dev), built from
+> [teajuw/trevorju.dev](https://github.com/teajuw/trevorju.dev).
+
 # Portfolio
 
 Personal portfolio showcasing ML/AI projects with an AI-powered navigation assistant.
