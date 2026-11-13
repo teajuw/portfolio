@@ -23,6 +23,24 @@ const PROJECTS: Record<string, any> = {
     ],
     repo: "https://github.com/teajuw/pickleball-cv"
   },
+  "3rd-shot": {
+    title: "3RD SHOT",
+    subtitle: "3D Digital Twin · Human Mesh Recovery · Physics",
+    tags: ["PYTHON", "PYTORCH", "SAM 3D BODY", "THREE.JS"],
+    description: "A pipeline that turns single-camera broadcast video of a pickleball match into a 3D digital twin: the court, four moving bodies, their paddles and the ball, in real units. It runs offline on an Apple Silicon Mac, and every stage has a write-up of what was measured, including what did not work.",
+    features: [
+      "Full 3D body meshes for four players, grounded on the court",
+      "3D ball path solved from one camera with physics",
+      "Paddles inferred from the arm and the ball at each hit",
+      "Shot-target model that predicts a distribution over the court"
+    ],
+    tech: [
+      { category: "Bodies", skills: ["SAM 3D Body", "GVHMR", "PyTorch (MPS)"] },
+      { category: "Vision", skills: ["YOLO keypoints", "OpenCV", "SAM 2"] },
+      { category: "Physics and viewer", skills: ["NumPy", "SciPy", "three.js"] }
+    ],
+    repo: "https://github.com/teajuw/3rd-shot"
+  },
   "spotify-rag": {
     title: "SPOTIFY RAG",
     subtitle: "Semantic Search · Vector Embeddings · Audio Analysis",

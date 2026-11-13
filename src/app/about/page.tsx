@@ -43,6 +43,13 @@ const projects: Project[] = [
     status: "demo"
   },
   {
+    title: "3rd Shot",
+    slug: "3rd-shot",
+    description: "Single-camera pickleball video to a 3D digital twin: grounded body meshes, paddles and a physics-solved ball, plus a model of where shots go.",
+    tags: ["3D Vision", "PyTorch", "Physics"],
+    status: "wip"
+  },
+  {
     title: "Pickleball CV",
     slug: "pickleball-cv",
     description: "Computer vision for tracking pickleball gameplay, analyzing shots, and generating automated highlights from video footage.",
